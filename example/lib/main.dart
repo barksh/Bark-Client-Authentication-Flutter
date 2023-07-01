@@ -18,6 +18,7 @@ class _MyAppState extends State<MyApp> {
     final BarkAuthenticationSignIn signIn = BarkAuthenticationSignIn(
       authenticatorDomain: "bark.sh",
       targetDomain: "example.flutter.authentication.client.bark.sh",
+      overrideAuthenticationModuleDomain: Uri.http("localhost:4000"),
     );
 
     return MaterialApp(

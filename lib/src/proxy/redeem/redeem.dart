@@ -12,17 +12,22 @@ Future<BarkRedeemResponse> callBarkRedeem(
     '/v1/authentication/redeem',
   );
 
-  final Response rawResponse = await dio.postUri(
-    uri,
-    data: {
-      'hiddenKey': hiddenKey,
-    },
-  );
+  try {
+    final Response rawResponse = await dio.postUri(
+      uri,
+      data: {
+        'hiddenKey': hiddenKey,
+      },
+    );
 
-  final BarkRedeemResponse response = BarkRedeemResponse.fromJson(
-    rawResponse.data,
-  );
-  logger.debug(response);
+    final BarkRedeemResponse response = BarkRedeemResponse.fromJson(
+      rawResponse.data,
+    );
+    logger.debug(response);
 
-  return response;
+    return response;
+  } catch (e) {
+    logger.error(e);
+    rethrow;
+  }
 }

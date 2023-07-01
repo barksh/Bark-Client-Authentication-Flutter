@@ -12,23 +12,28 @@ Future<BarkInquiryResponse> callBarkInquiry(
     '/v1/authentication/inquiry',
   );
 
-  final Response rawResponse = await dio.postUri(
-    uri,
-    data: {
-      'domain': targetDomain,
-      'actions': [
-        {
-          'type': 'CALLBACK',
-          'payload': 'bark-callback://succeed',
-        },
-      ],
-    },
-  );
+  try {
+    final Response rawResponse = await dio.postUri(
+      uri,
+      data: {
+        'domain': targetDomain,
+        'actions': [
+          {
+            'type': 'CALLBACK',
+            'payload': 'bark-callback://succeed',
+          },
+        ],
+      },
+    );
 
-  final BarkInquiryResponse response = BarkInquiryResponse.fromJson(
-    rawResponse.data,
-  );
-  logger.debug(response);
+    final BarkInquiryResponse response = BarkInquiryResponse.fromJson(
+      rawResponse.data,
+    );
+    logger.debug(response);
 
-  return response;
+    return response;
+  } catch (e) {
+    logger.error(e);
+    rethrow;
+  }
 }

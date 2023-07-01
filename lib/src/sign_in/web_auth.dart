@@ -8,7 +8,8 @@ Future<bool> openAuthenticationPortal(
   String exposureKey,
 ) async {
   try {
-    logger.info('startWebAuth');
+    logger.debug(
+        "open authentication portal, uri: $baseUri, exposureKey: $exposureKey");
 
     final String result = await FlutterWebAuth2.authenticate(
       url: "https://${baseUri.authority}/?key=$exposureKey",

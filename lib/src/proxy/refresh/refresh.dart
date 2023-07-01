@@ -12,17 +12,22 @@ Future<BarkRefreshResponse> callBarkRefresh(
     '/v1/authentication/refresh',
   );
 
-  final Response rawResponse = await dio.postUri(
-    uri,
-    data: {
-      'refreshToken': refreshToken,
-    },
-  );
+  try {
+    final Response rawResponse = await dio.postUri(
+      uri,
+      data: {
+        'refreshToken': refreshToken,
+      },
+    );
 
-  final BarkRefreshResponse response = BarkRefreshResponse.fromJson(
-    rawResponse.data,
-  );
-  logger.debug(response);
+    final BarkRefreshResponse response = BarkRefreshResponse.fromJson(
+      rawResponse.data,
+    );
+    logger.debug(response);
 
-  return response;
+    return response;
+  } catch (e) {
+    logger.error(e);
+    rethrow;
+  }
 }

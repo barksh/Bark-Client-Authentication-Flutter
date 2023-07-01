@@ -22,9 +22,8 @@ Future<String?> lookupAuthenticationModuleV1WithDNSProxy(
     return null;
   }
 
-  logger.debug("lookup DNS Record for Authentication Module: $cnameRecord");
-
   final String dnsResponse = cnameRecord.first.data;
+  logger.debug("lookup DNS Record for Authentication Module: $dnsResponse");
 
   if (dnsResponse.endsWith('.')) {
     return dnsResponse.substring(0, dnsResponse.length - 1);

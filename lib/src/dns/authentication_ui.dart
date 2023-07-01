@@ -23,9 +23,8 @@ Future<String?> lookupAuthenticationUIV1WithDNSProxy(
     return null;
   }
 
-  logger.debug("lookup DNS Record for Authentication UI: $cnameRecord");
-
   final String dnsResponse = cnameRecord.first.data;
+  logger.debug("lookup DNS Record for Authentication UI: $dnsResponse");
 
   if (dnsResponse.endsWith('.')) {
     return dnsResponse.substring(0, dnsResponse.length - 1);
