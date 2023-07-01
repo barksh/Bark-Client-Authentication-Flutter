@@ -19,18 +19,20 @@ class BarkAuthenticationSignIn {
       authenticatorDomain,
     );
 
-    // final BarkInquiryResponse inquiryResponse = await callBarkInquiry(
-    //   authenticationModuleDomain,
-    //   targetDomain,
-    // );
+    if (authenticationModuleDomain == null) {
+      return false;
+    }
 
-    // final bool result = await openAuthenticationPortal(
-    //   authenticatorDomain,
-    //   inquiryResponse.exposureKey,
-    // );
+    final BarkInquiryResponse inquiryResponse = await callBarkInquiry(
+      authenticationModuleDomain,
+      targetDomain,
+    );
 
-    // return result;
+    final bool result = await openAuthenticationPortal(
+      authenticatorDomain,
+      inquiryResponse.exposureKey,
+    );
 
-    return true;
+    return result;
   }
 }

@@ -1,15 +1,15 @@
 import 'package:basic_utils/basic_utils.dart';
 
-const String dnsRecordName = '_bark-module-authentication-v1';
+const String dnsRecordName = '_bark-ui-authentication-v1';
 
-Future<String?> lookupAuthenticationModuleV1WithDNSProxy(
+Future<String?> lookupAuthenticationUIV1WithDNSProxy(
   String authenticatorDomain,
 ) async {
-  final String authenticationModuleDNSDomain =
+  final String authenticationUiDNSDomain =
       "$dnsRecordName.$authenticatorDomain";
 
   final List<RRecord>? cnameRecord = await DnsUtils.lookupRecord(
-    authenticationModuleDNSDomain,
+    authenticationUiDNSDomain,
     RRecordType.CNAME,
   );
 
