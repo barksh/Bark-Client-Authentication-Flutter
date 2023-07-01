@@ -34,4 +34,23 @@ class BarkRefreshTokenHeader {
       purpose: map['purpose'],
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'alg': alg,
+      'typ': typ,
+      'aud': aud,
+      'exp': exp,
+      'jti': jti,
+      'kty': kty,
+      'iat': iat,
+      'iss': iss,
+      'purpose': purpose,
+    };
+  }
+
+  @override
+  String toString() {
+    return 'BarkRefreshTokenHeader(alg: $alg, typ: $typ, aud: $aud, exp: $exp, jti: $jti, kty: $kty, iat: $iat, iss: $iss, purpose: $purpose)';
+  }
 }

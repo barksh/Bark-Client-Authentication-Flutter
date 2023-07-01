@@ -13,4 +13,15 @@ class BarkRefreshTokenBody {
       inquiry: map['inquiry'],
     );
   }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'identifier': identifier,
+      'inquiry': inquiry,
+    };
+  }
+
+  @override
+  String toString() =>
+      'BarkRefreshTokenBody(identifier: $identifier, inquiry: $inquiry)';
 }
