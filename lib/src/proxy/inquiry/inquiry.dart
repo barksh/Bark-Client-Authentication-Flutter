@@ -4,16 +4,19 @@ import '../../utils/log.dart';
 import '../client.dart';
 import 'response.dart';
 
-Future<BarkInquiryResponse> callBarkInquiry() async {
+Future<BarkInquiryResponse> callBarkInquiry(
+  final String authenticatorDomain,
+  final String targetDomain,
+) async {
   final Uri uri = Uri.http(
-    'localhost:4000',
+    authenticatorDomain,
     '/v1/authentication/inquiry',
   );
 
   final Response rawResponse = await dio.postUri(
     uri,
     data: {
-      'domain': 'mipha.io',
+      'domain': targetDomain,
       'actions': [
         {
           'type': 'CALLBACK',
