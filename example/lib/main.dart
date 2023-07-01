@@ -1,3 +1,4 @@
+import 'package:bark_authentication/bark_authentication.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -19,8 +20,13 @@ class _MyAppState extends State<MyApp> {
         appBar: AppBar(
           title: const Text('Plugin example app'),
         ),
-        body: const Center(
-          child: Text('Running'),
+        body: Center(
+          child: ElevatedButton(
+            child: const Text("Authenticate"),
+            onPressed: () {
+              startWebAuth();
+            },
+          ),
         ),
       ),
     );
