@@ -16,14 +16,14 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     final BarkAuthenticationSignIn signIn = BarkAuthenticationSignIn(
-      authenticatorDomain: "localhost:4000",
+      authenticatorDomain: "bark.sh",
       targetDomain: "example.flutter.authentication.client.bark.sh",
     );
 
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Plugin example app'),
+          title: const Text('Bark Client Authentication Example'),
         ),
         body: Center(
           child: ElevatedButton(

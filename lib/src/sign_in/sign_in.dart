@@ -1,7 +1,7 @@
 import 'package:bark_authentication/src/proxy/inquiry/response.dart';
 import 'package:bark_authentication/src/sign_in/web_auth.dart';
 
-import '../dns/authentication-module.dart';
+import '../dns/authentication_module.dart';
 import '../proxy/inquiry/inquiry.dart';
 
 class BarkAuthenticationSignIn {
@@ -14,7 +14,7 @@ class BarkAuthenticationSignIn {
   });
 
   Future<bool> signIn() async {
-    final String authenticationModuleDomain =
+    final String? authenticationModuleDomain =
         await lookupAuthenticationModuleV1WithDNSProxy(
       authenticatorDomain,
     );
