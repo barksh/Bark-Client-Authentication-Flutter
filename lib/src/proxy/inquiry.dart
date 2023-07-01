@@ -16,7 +16,7 @@ Future<void> callBarkInquiry() async {
       'actions': [
         {
           'type': 'CALLBACK',
-          'payload': 'my-custom-app://test',
+          'payload': 'bark-callback://succeed',
         },
       ],
     },

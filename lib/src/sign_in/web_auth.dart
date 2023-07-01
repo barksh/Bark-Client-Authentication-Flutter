@@ -9,10 +9,12 @@ void startWebAuth() async {
     logger.info('startWebAuth');
 
     await callBarkInquiry();
-    await FlutterWebAuth2.authenticate(
-      url: "https://auth.bark.sh",
-      callbackUrlScheme: "my-custom-app",
+    final String result = await FlutterWebAuth2.authenticate(
+      url: "https://auth.bark.sh/?key=d9d38e90f99e74cbfe79c68b6dbc3768",
+      callbackUrlScheme: "bark-callback",
     );
+
+    logger.info(result);
   } on PlatformException catch (e) {
     logger.error(e);
   } catch (e) {
