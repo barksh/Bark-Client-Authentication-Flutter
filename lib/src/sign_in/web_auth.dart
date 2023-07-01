@@ -1,16 +1,17 @@
+import 'package:bark_authentication/src/proxy/inquiry/response.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 
-import '../proxy/inquiry.dart';
+import '../proxy/inquiry/inquiry.dart';
 import '../utils/log.dart';
 
 void startWebAuth() async {
   try {
     logger.info('startWebAuth');
 
-    await callBarkInquiry();
+    final BarkInquiryResponse inquiryResponse = await callBarkInquiry();
     final String result = await FlutterWebAuth2.authenticate(
-      url: "https://auth.bark.sh/?key=d9d38e90f99e74cbfe79c68b6dbc3768",
+      url: "https://auth.bark.sh/?key=${inquiryResponse.exposureKey}",
       callbackUrlScheme: "bark-callback",
     );
 
