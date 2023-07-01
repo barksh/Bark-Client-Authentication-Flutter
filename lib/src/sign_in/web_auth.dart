@@ -4,14 +4,14 @@ import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
 import '../utils/log.dart';
 
 Future<bool> openAuthenticationPortal(
-  String authenticatorDomain,
+  Uri baseUri,
   String exposureKey,
 ) async {
   try {
     logger.info('startWebAuth');
 
     final String result = await FlutterWebAuth2.authenticate(
-      url: "https://$authenticatorDomain/?key=$exposureKey",
+      url: "https://${baseUri.authority}/?key=$exposureKey",
       callbackUrlScheme: "bark-callback",
     );
 

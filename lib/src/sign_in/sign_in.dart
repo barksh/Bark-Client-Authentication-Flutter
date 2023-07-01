@@ -13,30 +13,29 @@ class BarkAuthenticationSignIn {
   final String authenticatorDomain;
   final String targetDomain;
 
+  final Uri? overrideAuthenticationModuleDomain;
+  final Uri? overrideAuthenticationUiDomain;
+
   BarkAuthenticationSignIn({
     required this.authenticatorDomain,
     required this.targetDomain,
+    this.overrideAuthenticationModuleDomain,
+    this.overrideAuthenticationUiDomain,
   });
 
   Future<bool> signIn() async {
-    final String? authenticationModuleDomain =
-        await lookupAuthenticationModuleV1WithDNSProxy(
-      authenticatorDomain,
-    );
+    final Uri? authenticationModuleUri = await _getAuthenticationModuleDomain();
 
-    if (authenticationModuleDomain == null) {
+    if (authenticationModuleUri == null) {
       return false;
     }
 
     final BarkInquiryResponse inquiryResponse = await callBarkInquiry(
-      authenticationModuleDomain,
+      authenticationModuleUri,
       targetDomain,
     );
 
-    final String? authenticationUiDomain =
-        await lookupAuthenticationUIV1WithDNSProxy(
-      authenticatorDomain,
-    );
+    final Uri? authenticationUiDomain = await _getAuthenticationUIDomain();
 
     if (authenticationUiDomain == null) {
       return false;
@@ -48,6 +47,7 @@ class BarkAuthenticationSignIn {
     );
 
     final BarkRedeemResponse redeemResponse = await callBarkRedeem(
+      authenticationModuleUri,
       inquiryResponse.hiddenKey,
     );
 
@@ -57,5 +57,47 @@ class BarkAuthenticationSignIn {
     logger.debug(refreshToken);
 
     return result;
+  }
+
+  Future<Uri?> _getAuthenticationModuleDomain() async {
+    if (overrideAuthenticationModuleDomain != null) {
+      return overrideAuthenticationModuleDomain;
+    }
+
+    final String? authenticationModuleDomain =
+        await lookupAuthenticationModuleV1WithDNSProxy(
+      authenticatorDomain,
+    );
+
+    if (authenticationModuleDomain == null) {
+      return null;
+    }
+
+    final Uri uri = Uri.https(
+      authenticationModuleDomain,
+    );
+
+    return uri;
+  }
+
+  Future<Uri?> _getAuthenticationUIDomain() async {
+    if (overrideAuthenticationUiDomain != null) {
+      return overrideAuthenticationUiDomain;
+    }
+
+    final String? authenticationUIDomain =
+        await lookupAuthenticationUIV1WithDNSProxy(
+      authenticatorDomain,
+    );
+
+    if (authenticationUIDomain == null) {
+      return null;
+    }
+
+    final Uri uri = Uri.https(
+      authenticationUIDomain,
+    );
+
+    return uri;
   }
 }

@@ -5,10 +5,10 @@ import '../client.dart';
 import 'response.dart';
 
 Future<BarkRedeemResponse> callBarkRedeem(
+  final Uri baseUri,
   String hiddenKey,
 ) async {
-  final Uri uri = Uri.http(
-    'localhost:4000',
+  final Uri uri = baseUri.resolve(
     '/v1/authentication/redeem',
   );
 

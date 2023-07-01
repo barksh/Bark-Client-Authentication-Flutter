@@ -5,10 +5,10 @@ import '../client.dart';
 import 'response.dart';
 
 Future<BarkRefreshResponse> callBarkRefresh(
+  final Uri baseUri,
   String refreshToken,
 ) async {
-  final Uri uri = Uri.http(
-    'localhost:4000',
+  final Uri uri = baseUri.resolve(
     '/v1/authentication/refresh',
   );
 
