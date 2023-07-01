@@ -1,6 +1,7 @@
 import 'package:bark_authentication/src/proxy/inquiry/response.dart';
 import 'package:bark_authentication/src/sign_in/web_auth.dart';
 
+import '../dns/authentication-module.dart';
 import '../proxy/inquiry/inquiry.dart';
 
 class BarkAuthenticationSignIn {
@@ -13,16 +14,23 @@ class BarkAuthenticationSignIn {
   });
 
   Future<bool> signIn() async {
-    final BarkInquiryResponse inquiryResponse = await callBarkInquiry(
+    final String authenticationModuleDomain =
+        await lookupAuthenticationModuleV1WithDNSProxy(
       authenticatorDomain,
-      targetDomain,
     );
 
-    final bool result = await openAuthenticationPortal(
-      authenticatorDomain,
-      inquiryResponse.exposureKey,
-    );
+    // final BarkInquiryResponse inquiryResponse = await callBarkInquiry(
+    //   authenticationModuleDomain,
+    //   targetDomain,
+    // );
 
-    return result;
+    // final bool result = await openAuthenticationPortal(
+    //   authenticatorDomain,
+    //   inquiryResponse.exposureKey,
+    // );
+
+    // return result;
+
+    return true;
   }
 }

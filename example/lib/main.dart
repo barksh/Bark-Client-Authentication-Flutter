@@ -15,6 +15,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
+    final BarkAuthenticationSignIn signIn = BarkAuthenticationSignIn(
+      authenticatorDomain: "localhost:4000",
+      targetDomain: "example.flutter.authentication.client.bark.sh",
+    );
+
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
@@ -24,7 +29,7 @@ class _MyAppState extends State<MyApp> {
           child: ElevatedButton(
             child: const Text("Authenticate"),
             onPressed: () {
-              startWebAuth();
+              signIn.signIn();
             },
           ),
         ),

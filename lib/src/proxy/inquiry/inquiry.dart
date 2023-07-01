@@ -5,11 +5,11 @@ import '../client.dart';
 import 'response.dart';
 
 Future<BarkInquiryResponse> callBarkInquiry(
-  final String authenticatorDomain,
+  final String authenticationModuleDomain,
   final String targetDomain,
 ) async {
   final Uri uri = Uri.http(
-    authenticatorDomain,
+    authenticationModuleDomain,
     '/v1/authentication/inquiry',
   );
 
