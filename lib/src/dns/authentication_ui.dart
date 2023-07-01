@@ -1,5 +1,7 @@
 import 'package:basic_utils/basic_utils.dart';
 
+import '../utils/log.dart';
+
 const String dnsRecordName = '_bark-ui-authentication-v1';
 
 Future<String?> lookupAuthenticationUIV1WithDNSProxy(
@@ -20,6 +22,8 @@ Future<String?> lookupAuthenticationUIV1WithDNSProxy(
   if (cnameRecord.isEmpty) {
     return null;
   }
+
+  logger.debug("lookup DNS Record for Authentication UI: $cnameRecord");
 
   final String dnsResponse = cnameRecord.first.data;
 

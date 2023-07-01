@@ -4,7 +4,7 @@ import '../../utils/log.dart';
 import '../client.dart';
 import 'response.dart';
 
-Future<BarkRefreshResponse> callBarkRedeem(
+Future<BarkRefreshResponse> callBarkRefresh(
   String refreshToken,
 ) async {
   final Uri uri = Uri.http(
