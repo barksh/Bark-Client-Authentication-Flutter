@@ -19,8 +19,6 @@ Future<bool> openAuthenticationPortal(
     if (result == "bark-callback://succeed") {
       return true;
     }
-
-    logger.info(result);
     return false;
   } on PlatformException catch (e) {
     logger.error(e);

@@ -46,6 +46,10 @@ class BarkAuthenticationSignIn {
       inquiryResponse.exposureKey,
     );
 
+    if (!result) {
+      return false;
+    }
+
     final BarkRedeemResponse redeemResponse = await callBarkRedeem(
       authenticationModuleUri,
       inquiryResponse.hiddenKey,
