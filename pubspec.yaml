@@ -8,10 +8,10 @@ environment:
   flutter: ">=3.3.0"
 
 dependencies:
+  dio: ^5.2.1+1
   flutter:
     sdk: flutter
   flutter_web_auth_2: ^2.0.0
-  http: ^1.1.0
   logo: ^1.2.1
 
 dev_dependencies:

@@ -1,5 +1,7 @@
 import 'package:bark_authentication/src/utils/log.dart';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
+
+final dio = Dio();
 
 Future<void> callBarkInquiry() async {
   final Uri uri = Uri.https(
@@ -7,9 +9,9 @@ Future<void> callBarkInquiry() async {
     '/inquiry',
   );
 
-  final http.Response response = await http.post(
+  final Response response = await dio.postUri(
     uri,
-    body: {
+    data: {
       'domain': 'mipha.io',
       'actions': [
         {
@@ -20,5 +22,5 @@ Future<void> callBarkInquiry() async {
     },
   );
 
-  logger.debug(response.body);
+  logger.debug(response.data);
 }
