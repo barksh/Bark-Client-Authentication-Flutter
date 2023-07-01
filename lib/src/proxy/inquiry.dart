@@ -4,9 +4,9 @@ import 'package:dio/dio.dart';
 final dio = Dio();
 
 Future<void> callBarkInquiry() async {
-  final Uri uri = Uri.https(
-    'auth.bark.sh',
-    '/inquiry',
+  final Uri uri = Uri.http(
+    'localhost:4000',
+    '/v1/authentication/inquiry',
   );
 
   final Response response = await dio.postUri(
@@ -15,7 +15,7 @@ Future<void> callBarkInquiry() async {
       'domain': 'mipha.io',
       'actions': [
         {
-          'type': 'callback',
+          'type': 'CALLBACK',
           'payload': 'my-custom-app://test',
         },
       ],

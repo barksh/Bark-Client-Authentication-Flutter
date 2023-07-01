@@ -6,6 +6,8 @@ import '../utils/log.dart';
 
 void startWebAuth() async {
   try {
+    logger.info('startWebAuth');
+
     await callBarkInquiry();
     await FlutterWebAuth2.authenticate(
       url: "https://auth.bark.sh",
