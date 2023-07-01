@@ -1,5 +1,4 @@
-
-import 'bark_authentication_platform_interface.dart';
+import 'package:bark_authentication/src/platform/platform_interface.dart';
 
 class BarkAuthentication {
   Future<String?> getPlatformVersion() {

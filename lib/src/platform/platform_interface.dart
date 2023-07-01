@@ -1,6 +1,6 @@
 import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
-import 'bark_authentication_method_channel.dart';
+import 'platform_method_channel.dart';
 
 abstract class BarkAuthenticationPlatform extends PlatformInterface {
   /// Constructs a BarkAuthenticationPlatform.
@@ -8,7 +8,8 @@ abstract class BarkAuthenticationPlatform extends PlatformInterface {
 
   static final Object _token = Object();
 
-  static BarkAuthenticationPlatform _instance = MethodChannelBarkAuthentication();
+  static BarkAuthenticationPlatform _instance =
+      MethodChannelBarkAuthentication();
 
   /// The default instance of [BarkAuthenticationPlatform] to use.
   ///

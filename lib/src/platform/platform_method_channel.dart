@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
-import 'bark_authentication_platform_interface.dart';
+import 'platform_interface.dart';
 
 /// An implementation of [BarkAuthenticationPlatform] that uses method channels.
 class MethodChannelBarkAuthentication extends BarkAuthenticationPlatform {
@@ -11,7 +11,8 @@ class MethodChannelBarkAuthentication extends BarkAuthenticationPlatform {
 
   @override
   Future<String?> getPlatformVersion() async {
-    final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
+    final version =
+        await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
 }
