@@ -93,6 +93,34 @@ class _MyAppState extends State<MyApp> {
                       });
                     },
                   ),
+                  ElevatedButton(
+                    child: const Text("Get Refresh Token"),
+                    onPressed: () {
+                      signIn.getRefreshToken().then((BarkRefreshToken? result) {
+                        if (result == null) {
+                          return;
+                        }
+
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: const Text("Get Refresh Result"),
+                              content: Text(result.toString()),
+                              actions: [
+                                TextButton(
+                                  child: const Text("OK"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      });
+                    },
+                  ),
                 ],
               );
             },
