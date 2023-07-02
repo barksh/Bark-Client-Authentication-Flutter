@@ -1,3 +1,4 @@
+export "src/bark/bark_authentication.dart";
 export "src/sign_in/result.dart";
 export "src/sign_in/sign_in.dart";
 export "src/token/authentication/authentication_token.dart";

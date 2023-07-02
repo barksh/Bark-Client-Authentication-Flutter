@@ -1,4 +1,7 @@
-import 'package:bark/bark.dart';
+import 'package:bark/src/sign_in/result.dart';
+import 'package:bark/src/sign_in/sign_in.dart';
+import 'package:bark/src/token/authentication/authentication_token.dart';
+import 'package:bark/src/token/refresh/refresh_token.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logo/logo.dart';
 
@@ -26,14 +29,36 @@ class BarkAuthentication {
     storage = const FlutterSecureStorage();
   }
 
-  Future<BarkAuthenticationToken?> ensureToken() async {
+  Future<BarkAuthenticationToken?> ensureAuthenticationToken() async {
     final BarkAuthenticationToken? token = await getAuthenticationToken();
 
     if (token != null) {
       return token;
     }
 
-    return signIn();
+    final BarkSignInResult? result = await signIn();
+
+    if (result == null) {
+      return null;
+    }
+
+    return result.authenticationToken;
+  }
+
+  Future<BarkRefreshToken?> ensureRefreshToken() async {
+    final BarkRefreshToken? token = await getRefreshToken();
+
+    if (token != null) {
+      return token;
+    }
+
+    final BarkSignInResult? result = await signIn();
+
+    if (result == null) {
+      return null;
+    }
+
+    return result.refreshToken;
   }
 
   Future<BarkAuthenticationToken?> getAuthenticationToken() async {
@@ -45,10 +70,31 @@ class BarkAuthentication {
       return null;
     }
 
-    return BarkAuthenticationToken.fromRawToken(rawToken);
+    final BarkAuthenticationToken token =
+        BarkAuthenticationToken.fromRawToken(rawToken);
+
+    if (token.verifyTime()) {
+      return token;
+    }
+
+    final BarkRefreshToken? currentRefreshToken = await getRefreshToken();
+
+    if (currentRefreshToken == null) {
+      return null;
+    }
+
+    final BarkAuthenticationToken? refreshedToken = await refreshToken(
+      currentRefreshToken,
+    );
+
+    if (refreshedToken != null) {
+      return refreshedToken;
+    }
+
+    return null;
   }
 
-  Future<BarkAuthenticationToken?> getRefreshToken() async {
+  Future<BarkRefreshToken?> getRefreshToken() async {
     final String? rawToken = await storage.read(
       key: refreshStorageKey,
     );
@@ -57,17 +103,17 @@ class BarkAuthentication {
       return null;
     }
 
-    return BarkAuthenticationToken.fromRawToken(rawToken);
+    final BarkRefreshToken token = BarkRefreshToken.fromRawToken(rawToken);
+
+    if (token.verifyTime()) {
+      return token;
+    }
+
+    return null;
   }
 
-  Future<BarkAuthenticationToken?> signIn() async {
-    final BarkAuthenticationSignIn signIn = BarkAuthenticationSignIn(
-      authenticatorDomain: authenticatorDomain,
-      targetDomain: targetDomain,
-      overrideAuthenticationModuleDomain: overrideAuthenticationModuleDomain,
-      overrideAuthenticationUiDomain: overrideAuthenticationUiDomain,
-      logger: logger,
-    );
+  Future<BarkSignInResult?> signIn() async {
+    final BarkAuthenticationSignIn signIn = _buildSignIn();
 
     final BarkSignInResult? result = await signIn.signIn();
 
@@ -84,7 +130,28 @@ class BarkAuthentication {
       value: result.refreshToken.rawToken,
     );
 
-    return result.authenticationToken;
+    return result;
+  }
+
+  Future<BarkAuthenticationToken?> refreshToken(
+    BarkRefreshToken refreshToken,
+  ) async {
+    final BarkAuthenticationSignIn signIn = _buildSignIn();
+
+    final BarkAuthenticationToken? token = await signIn.refreshToken(
+      refreshToken,
+    );
+
+    if (token == null) {
+      return null;
+    }
+
+    await storage.write(
+      key: authenticationStorageKey,
+      value: token.rawToken,
+    );
+
+    return token;
   }
 
   Future<void> signOut() async {
@@ -94,5 +161,17 @@ class BarkAuthentication {
     await storage.delete(
       key: refreshStorageKey,
     );
+  }
+
+  BarkAuthenticationSignIn _buildSignIn() {
+    final BarkAuthenticationSignIn signIn = BarkAuthenticationSignIn(
+      authenticatorDomain: authenticatorDomain,
+      targetDomain: targetDomain,
+      overrideAuthenticationModuleDomain: overrideAuthenticationModuleDomain,
+      overrideAuthenticationUiDomain: overrideAuthenticationUiDomain,
+      logger: logger,
+    );
+
+    return signIn;
   }
 }

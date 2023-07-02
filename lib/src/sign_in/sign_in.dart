@@ -82,6 +82,27 @@ class BarkAuthenticationSignIn {
     );
   }
 
+  Future<BarkAuthenticationToken?> refreshToken(
+    BarkRefreshToken refreshToken,
+  ) async {
+    final Uri? authenticationModuleUri = await _getAuthenticationModuleDomain();
+
+    if (authenticationModuleUri == null) {
+      return null;
+    }
+
+    final BarkRefreshResponse refreshResponse = await callBarkRefresh(
+      authenticationModuleUri,
+      refreshToken.rawToken,
+      logger: logger,
+    );
+
+    final BarkAuthenticationToken authenticationToken =
+        BarkAuthenticationToken.fromRawToken(refreshResponse.token);
+
+    return authenticationToken;
+  }
+
   Future<Uri?> _getAuthenticationModuleDomain() async {
     if (overrideAuthenticationModuleDomain != null) {
       return overrideAuthenticationModuleDomain;
