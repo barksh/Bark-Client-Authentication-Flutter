@@ -1,5 +1,5 @@
-name: bark_authentication_example
-description: Demonstrates how to use the bark_authentication plugin.
+name: bark_example
+description: Demonstrates how to use the bark plugin.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: "none" # Remove this line if you wish to publish to pub.dev
@@ -7,27 +7,12 @@ publish_to: "none" # Remove this line if you wish to publish to pub.dev
 environment:
   sdk: ">=3.0.5 <4.0.0"
 
-# Dependencies specify other packages that your package needs in order to work.
-# To automatically upgrade your package dependencies to the latest versions
-# consider running `flutter pub upgrade --major-versions`. Alternatively,
-# dependencies can be manually updated by changing the version numbers below to
-# the latest version available on pub.dev. To see which dependencies have newer
-# versions available, run `flutter pub outdated`.
 dependencies:
   flutter:
     sdk: flutter
-  logo: ^1.2.1
-  bark_authentication:
-    # When depending on this package from a real application you should use:
-    #   bark_authentication: ^x.y.z
-    # See https://dart.dev/tools/pub/dependencies#version-constraints
-    # The example app is bundled with the plugin so we use a path dependency on
-    # the parent directory to use the current plugin's version.
+  bark:
     path: ../
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^1.0.2
+  logo: ^1.2.1
 
 dev_dependencies:
   integration_test:

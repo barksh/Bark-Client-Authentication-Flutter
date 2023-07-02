@@ -1,4 +1,4 @@
-package sh.bark.bark_authentication_example
+package sh.bark.bark_example
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,4 +1,4 @@
-import 'package:bark_authentication/bark_authentication.dart';
+import 'package:bark/bark.dart';
 import 'package:flutter/material.dart';
 import 'package:logo/logo.dart';
 

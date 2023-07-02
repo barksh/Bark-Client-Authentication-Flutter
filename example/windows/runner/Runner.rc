@@ -90,12 +90,12 @@ BEGIN
         BLOCK "040904e4"
         BEGIN
             VALUE "CompanyName", "sh.bark" "\0"
-            VALUE "FileDescription", "bark_authentication_example" "\0"
+            VALUE "FileDescription", "bark_example" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "bark_authentication_example" "\0"
+            VALUE "InternalName", "bark_example" "\0"
             VALUE "LegalCopyright", "Copyright (C) 2023 sh.bark. All rights reserved." "\0"
-            VALUE "OriginalFilename", "bark_authentication_example.exe" "\0"
-            VALUE "ProductName", "bark_authentication_example" "\0"
+            VALUE "OriginalFilename", "bark_example.exe" "\0"
+            VALUE "ProductName", "bark_example" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

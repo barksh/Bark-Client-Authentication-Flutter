@@ -1,4 +1,4 @@
-#include "bark_authentication_plugin.h"
+#include "bark_plugin.h"
 
 // This must be included before many other Windows headers.
 #include <windows.h>
@@ -13,17 +13,17 @@
 #include <memory>
 #include <sstream>
 
-namespace bark_authentication {
+namespace bark {
 
 // static
-void BarkAuthenticationPlugin::RegisterWithRegistrar(
+void BarkPlugin::RegisterWithRegistrar(
     flutter::PluginRegistrarWindows *registrar) {
   auto channel =
       std::make_unique<flutter::MethodChannel<flutter::EncodableValue>>(
-          registrar->messenger(), "bark_authentication",
+          registrar->messenger(), "bark",
           &flutter::StandardMethodCodec::GetInstance());
 
-  auto plugin = std::make_unique<BarkAuthenticationPlugin>();
+  auto plugin = std::make_unique<BarkPlugin>();
 
   channel->SetMethodCallHandler(
       [plugin_pointer = plugin.get()](const auto &call, auto result) {
@@ -33,11 +33,11 @@ void BarkAuthenticationPlugin::RegisterWithRegistrar(
   registrar->AddPlugin(std::move(plugin));
 }
 
-BarkAuthenticationPlugin::BarkAuthenticationPlugin() {}
+BarkPlugin::BarkPlugin() {}
 
-BarkAuthenticationPlugin::~BarkAuthenticationPlugin() {}
+BarkPlugin::~BarkPlugin() {}
 
-void BarkAuthenticationPlugin::HandleMethodCall(
+void BarkPlugin::HandleMethodCall(
     const flutter::MethodCall<flutter::EncodableValue> &method_call,
     std::unique_ptr<flutter::MethodResult<flutter::EncodableValue>> result) {
   if (method_call.method_name().compare("getPlatformVersion") == 0) {
@@ -56,4 +56,4 @@ void BarkAuthenticationPlugin::HandleMethodCall(
   }
 }
 
-}  // namespace bark_authentication
+}  // namespace bark

@@ -6,14 +6,14 @@
 
 #include "generated_plugin_registrant.h"
 
-#include <bark_authentication/bark_authentication_plugin.h>
+#include <bark/bark_plugin.h>
 #include <url_launcher_linux/url_launcher_plugin.h>
 #include <window_to_front/window_to_front_plugin.h>
 
 void fl_register_plugins(FlPluginRegistry* registry) {
-  g_autoptr(FlPluginRegistrar) bark_authentication_registrar =
-      fl_plugin_registry_get_registrar_for_plugin(registry, "BarkAuthenticationPlugin");
-  bark_authentication_plugin_register_with_registrar(bark_authentication_registrar);
+  g_autoptr(FlPluginRegistrar) bark_registrar =
+      fl_plugin_registry_get_registrar_for_plugin(registry, "BarkPlugin");
+  bark_plugin_register_with_registrar(bark_registrar);
   g_autoptr(FlPluginRegistrar) url_launcher_linux_registrar =
       fl_plugin_registry_get_registrar_for_plugin(registry, "UrlLauncherPlugin");
   url_launcher_plugin_register_with_registrar(url_launcher_linux_registrar);

@@ -1,4 +1,4 @@
-package sh.bark.bark_authentication
+package sh.bark.bark
 
 import androidx.annotation.NonNull
 
@@ -8,8 +8,8 @@ import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
 
-/** BarkAuthenticationPlugin */
-class BarkAuthenticationPlugin: FlutterPlugin, MethodCallHandler {
+/** BarkPlugin */
+class BarkPlugin: FlutterPlugin, MethodCallHandler {
   /// The MethodChannel that will the communication between Flutter and native Android
   ///
   /// This local reference serves to register the plugin with the Flutter Engine and unregister it
@@ -17,7 +17,7 @@ class BarkAuthenticationPlugin: FlutterPlugin, MethodCallHandler {
   private lateinit var channel : MethodChannel
 
   override fun onAttachedToEngine(@NonNull flutterPluginBinding: FlutterPlugin.FlutterPluginBinding) {
-    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "bark_authentication")
+    channel = MethodChannel(flutterPluginBinding.binaryMessenger, "bark")
     channel.setMethodCallHandler(this)
   }
 

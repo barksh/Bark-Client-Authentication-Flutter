@@ -1,10 +1,10 @@
 import Cocoa
 import FlutterMacOS
 
-public class BarkAuthenticationPlugin: NSObject, FlutterPlugin {
+public class BarkPlugin: NSObject, FlutterPlugin {
   public static func register(with registrar: FlutterPluginRegistrar) {
-    let channel = FlutterMethodChannel(name: "bark_authentication", binaryMessenger: registrar.messenger)
-    let instance = BarkAuthenticationPlugin()
+    let channel = FlutterMethodChannel(name: "bark", binaryMessenger: registrar.messenger)
+    let instance = BarkPlugin()
     registrar.addMethodCallDelegate(instance, channel: channel)
   }
 

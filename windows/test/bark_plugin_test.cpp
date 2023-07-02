@@ -8,9 +8,9 @@
 #include <string>
 #include <variant>
 
-#include "bark_authentication_plugin.h"
+#include "bark_plugin.h"
 
-namespace bark_authentication {
+namespace bark {
 namespace test {
 
 namespace {
@@ -22,8 +22,8 @@ using flutter::MethodResultFunctions;
 
 }  // namespace
 
-TEST(BarkAuthenticationPlugin, GetPlatformVersion) {
-  BarkAuthenticationPlugin plugin;
+TEST(BarkPlugin, GetPlatformVersion) {
+  BarkPlugin plugin;
   // Save the reply value from the success callback.
   std::string result_string;
   plugin.HandleMethodCall(
@@ -40,4 +40,4 @@ TEST(BarkAuthenticationPlugin, GetPlatformVersion) {
 }
 
 }  // namespace test
-}  // namespace bark_authentication
+}  // namespace bark

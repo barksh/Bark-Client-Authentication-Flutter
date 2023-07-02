@@ -1,5 +1,5 @@
-import 'package:bark_authentication/src/token/authentication/authentication_token.dart';
-import 'package:bark_authentication/src/token/refresh/refresh_token.dart';
+import 'package:bark/src/token/authentication/authentication_token.dart';
+import 'package:bark/src/token/refresh/refresh_token.dart';
 
 class BarkSignInResult {
   final BarkRefreshToken refreshToken;

@@ -3,7 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  bark_authentication
+  bark
   url_launcher_windows
   window_to_front
 )

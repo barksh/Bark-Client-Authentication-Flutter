@@ -1,10 +1,10 @@
-import 'package:bark_authentication/src/proxy/inquiry/response.dart';
-import 'package:bark_authentication/src/proxy/redeem/response.dart';
-import 'package:bark_authentication/src/proxy/refresh/response.dart';
-import 'package:bark_authentication/src/sign_in/result.dart';
-import 'package:bark_authentication/src/sign_in/web_auth.dart';
-import 'package:bark_authentication/src/token/authentication/authentication_token.dart';
-import 'package:bark_authentication/src/token/refresh/refresh_token.dart';
+import 'package:bark/src/proxy/inquiry/response.dart';
+import 'package:bark/src/proxy/redeem/response.dart';
+import 'package:bark/src/proxy/refresh/response.dart';
+import 'package:bark/src/sign_in/result.dart';
+import 'package:bark/src/sign_in/web_auth.dart';
+import 'package:bark/src/token/authentication/authentication_token.dart';
+import 'package:bark/src/token/refresh/refresh_token.dart';
 import 'package:logo/logo.dart';
 
 import '../dns/authentication_module.dart';

@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="bark_authentication_example"
+        android:label="bark_example"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

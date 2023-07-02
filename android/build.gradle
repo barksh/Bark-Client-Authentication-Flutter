@@ -1,4 +1,4 @@
-group 'sh.bark.bark_authentication'
+group 'sh.bark.bark'
 version '1.0-SNAPSHOT'
 
 buildscript {

@@ -1,6 +1,6 @@
-# bark_authentication_example
+# bark_example
 
-Demonstrates how to use the bark_authentication plugin.
+Demonstrates how to use the bark plugin.
 
 ## Getting Started
 
