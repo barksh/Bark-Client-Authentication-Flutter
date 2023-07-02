@@ -4,20 +4,20 @@ import '../../utils/decode.dart';
 import 'body.dart';
 import 'header.dart';
 
-class BarkRefreshToken {
+class BarkAuthenticationToken {
   final String rawToken;
-  final BarkRefreshTokenHeader header;
-  final BarkRefreshTokenBody body;
+  final BarkAuthenticationTokenHeader header;
+  final BarkAuthenticationTokenBody body;
   final String signature;
 
-  BarkRefreshToken({
+  BarkAuthenticationToken({
     required this.rawToken,
     required this.header,
     required this.body,
     required this.signature,
   });
 
-  factory BarkRefreshToken.fromRawToken(String token) {
+  factory BarkAuthenticationToken.fromRawToken(String token) {
     final List<String> splited = token.split('.');
 
     if (splited.length != 3) {
@@ -28,13 +28,13 @@ class BarkRefreshToken {
     final String rawBody = decodeBase64(splited[1]);
     final String signature = splited[2].toString();
 
-    final BarkRefreshTokenHeader header =
-        BarkRefreshTokenHeader.fromMap(jsonDecode(rawHeader));
+    final BarkAuthenticationTokenHeader header =
+        BarkAuthenticationTokenHeader.fromMap(jsonDecode(rawHeader));
 
-    final BarkRefreshTokenBody body =
-        BarkRefreshTokenBody.fromMap(jsonDecode(rawBody));
+    final BarkAuthenticationTokenBody body =
+        BarkAuthenticationTokenBody.fromMap(jsonDecode(rawBody));
 
-    return BarkRefreshToken(
+    return BarkAuthenticationToken(
       rawToken: token,
       header: header,
       body: body,
@@ -44,6 +44,6 @@ class BarkRefreshToken {
 
   @override
   String toString() {
-    return "BarkRefreshToken(rawToken: $rawToken, header: $header, body: $body, signature: $signature)";
+    return "BarkAuthenticationToken(rawToken: $rawToken, header: $header, body: $body, signature: $signature)";
   }
 }
