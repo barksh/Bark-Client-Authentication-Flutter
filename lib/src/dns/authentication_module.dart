@@ -1,11 +1,12 @@
-import 'package:bark_authentication/src/utils/log.dart';
 import 'package:basic_utils/basic_utils.dart';
+import 'package:logo/logo.dart';
 
 const String dnsRecordName = '_bark-module-authentication-v1';
 
 Future<String?> lookupAuthenticationModuleV1WithDNSProxy(
-  String authenticatorDomain,
-) async {
+  String authenticatorDomain, {
+  required Logo logger,
+}) async {
   final String authenticationModuleDNSDomain =
       "$dnsRecordName.$authenticatorDomain";
 

@@ -1,12 +1,12 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_web_auth_2/flutter_web_auth_2.dart';
-
-import '../utils/log.dart';
+import 'package:logo/logo.dart';
 
 Future<bool> openAuthenticationPortal(
   Uri baseUri,
-  String exposureKey,
-) async {
+  String exposureKey, {
+  required Logo logger,
+}) async {
   try {
     logger.debug(
         "open authentication portal, uri: $baseUri, exposureKey: $exposureKey");

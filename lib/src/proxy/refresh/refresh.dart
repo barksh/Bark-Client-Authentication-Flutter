@@ -1,13 +1,14 @@
 import 'package:dio/dio.dart';
+import 'package:logo/logo.dart';
 
-import '../../utils/log.dart';
 import '../client.dart';
 import 'response.dart';
 
 Future<BarkRefreshResponse> callBarkRefresh(
   final Uri baseUri,
-  String refreshToken,
-) async {
+  String refreshToken, {
+  required Logo logger,
+}) async {
   final Uri uri = baseUri.resolve(
     '/v1/authentication/refresh',
   );
