@@ -31,8 +31,12 @@ class _MyAppState extends State<MyApp> {
         body: Center(
           child: ElevatedButton(
             child: const Text("Authenticate"),
-            onPressed: () {
-              signIn.signIn();
+            onPressed: () async {
+              final BarkSignInResult? result = await signIn.signIn();
+
+              if (result == null) {
+                return;
+              }
             },
           ),
         ),

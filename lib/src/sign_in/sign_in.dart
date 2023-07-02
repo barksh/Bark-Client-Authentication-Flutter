@@ -1,6 +1,9 @@
 import 'package:bark_authentication/src/proxy/inquiry/response.dart';
 import 'package:bark_authentication/src/proxy/redeem/response.dart';
+import 'package:bark_authentication/src/proxy/refresh/response.dart';
+import 'package:bark_authentication/src/sign_in/result.dart';
 import 'package:bark_authentication/src/sign_in/web_auth.dart';
+import 'package:bark_authentication/src/token/authentication/authentication_token.dart';
 import 'package:bark_authentication/src/token/refresh/refresh_token.dart';
 import 'package:logo/logo.dart';
 
@@ -8,6 +11,7 @@ import '../dns/authentication_module.dart';
 import '../dns/authentication_ui.dart';
 import '../proxy/inquiry/inquiry.dart';
 import '../proxy/redeem/redeem.dart';
+import '../proxy/refresh/refresh.dart';
 
 class BarkAuthenticationSignIn {
   final String authenticatorDomain;
@@ -28,11 +32,11 @@ class BarkAuthenticationSignIn {
     logger = Logo(logLevel ?? LogoLogLevel.info());
   }
 
-  Future<bool> signIn() async {
+  Future<BarkSignInResult?> signIn() async {
     final Uri? authenticationModuleUri = await _getAuthenticationModuleDomain();
 
     if (authenticationModuleUri == null) {
-      return false;
+      return null;
     }
 
     final BarkInquiryResponse inquiryResponse = await callBarkInquiry(
@@ -44,7 +48,7 @@ class BarkAuthenticationSignIn {
     final Uri? authenticationUiDomain = await _getAuthenticationUIDomain();
 
     if (authenticationUiDomain == null) {
-      return false;
+      return null;
     }
 
     final bool result = await openAuthenticationPortal(
@@ -54,7 +58,7 @@ class BarkAuthenticationSignIn {
     );
 
     if (!result) {
-      return false;
+      return null;
     }
 
     final BarkRedeemResponse redeemResponse = await callBarkRedeem(
@@ -66,9 +70,19 @@ class BarkAuthenticationSignIn {
     final BarkRefreshToken refreshToken =
         BarkRefreshToken.fromRawToken(redeemResponse.refreshToken);
 
-    logger.debug(refreshToken);
+    final BarkRefreshResponse refreshResponse = await callBarkRefresh(
+      authenticationModuleUri,
+      refreshToken.rawToken,
+      logger: logger,
+    );
 
-    return result;
+    final BarkAuthenticationToken authenticationToken =
+        BarkAuthenticationToken.fromRawToken(refreshResponse.token);
+
+    return BarkSignInResult(
+      refreshToken: refreshToken,
+      authenticationToken: authenticationToken,
+    );
   }
 
   Future<Uri?> _getAuthenticationModuleDomain() async {
