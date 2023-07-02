@@ -66,6 +66,8 @@ class BarkAuthentication {
       key: authenticationStorageKey,
     );
 
+    logger.verbose("Bark - Get Authentication Token: $rawToken");
+
     if (rawToken == null) {
       return null;
     }
@@ -99,6 +101,8 @@ class BarkAuthentication {
       key: refreshStorageKey,
     );
 
+    logger.verbose("Bark - Get Refresh Token: $rawToken");
+
     if (rawToken == null) {
       return null;
     }
@@ -125,10 +129,17 @@ class BarkAuthentication {
       key: authenticationStorageKey,
       value: result.authenticationToken.rawToken,
     );
+
+    logger.verbose(
+        "Bark - Write Authentication Token: ${result.authenticationToken.rawToken}");
+
     await storage.write(
       key: refreshStorageKey,
       value: result.refreshToken.rawToken,
     );
+
+    logger
+        .verbose("Bark - Write Refresh Token: ${result.refreshToken.rawToken}");
 
     return result;
   }
