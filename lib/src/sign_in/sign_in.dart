@@ -1,17 +1,16 @@
+import 'package:bark/src/dns/authentication_module.dart';
+import 'package:bark/src/dns/authentication_ui.dart';
+import 'package:bark/src/proxy/inquiry/inquiry.dart';
 import 'package:bark/src/proxy/inquiry/response.dart';
+import 'package:bark/src/proxy/redeem/redeem.dart';
 import 'package:bark/src/proxy/redeem/response.dart';
+import 'package:bark/src/proxy/refresh/refresh.dart';
 import 'package:bark/src/proxy/refresh/response.dart';
 import 'package:bark/src/sign_in/result.dart';
 import 'package:bark/src/sign_in/web_auth.dart';
 import 'package:bark/src/token/authentication/authentication_token.dart';
 import 'package:bark/src/token/refresh/refresh_token.dart';
 import 'package:logo/logo.dart';
-
-import '../dns/authentication_module.dart';
-import '../dns/authentication_ui.dart';
-import '../proxy/inquiry/inquiry.dart';
-import '../proxy/redeem/redeem.dart';
-import '../proxy/refresh/refresh.dart';
 
 class BarkAuthenticationSignIn {
   final String authenticatorDomain;
@@ -20,17 +19,15 @@ class BarkAuthenticationSignIn {
   final Uri? overrideAuthenticationModuleDomain;
   final Uri? overrideAuthenticationUiDomain;
 
-  late final Logo logger;
+  final Logo logger;
 
   BarkAuthenticationSignIn({
     required this.authenticatorDomain,
     required this.targetDomain,
     this.overrideAuthenticationModuleDomain,
     this.overrideAuthenticationUiDomain,
-    LogoLogLevel? logLevel,
-  }) {
-    logger = Logo(logLevel ?? LogoLogLevel.info());
-  }
+    required this.logger,
+  });
 
   Future<BarkSignInResult?> signIn() async {
     final Uri? authenticationModuleUri = await _getAuthenticationModuleDomain();

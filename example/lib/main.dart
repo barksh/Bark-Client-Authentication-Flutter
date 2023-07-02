@@ -1,6 +1,6 @@
 import 'package:bark/bark.dart';
+import 'package:bark_example/util/log.dart';
 import 'package:flutter/material.dart';
-import 'package:logo/logo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +22,7 @@ class _MyAppState extends State<MyApp> {
       authenticatorDomain: "bark.sh",
       targetDomain: "example.flutter.authentication.client.bark.sh",
       overrideAuthenticationModuleDomain: Uri.http("localhost:4000"),
-      logLevel: LogoLogLevel.all(),
+      logger: logger,
     );
 
     return MaterialApp(
