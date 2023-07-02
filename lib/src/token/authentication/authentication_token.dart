@@ -42,6 +42,64 @@ class BarkAuthenticationToken {
     );
   }
 
+  String getRawToken() {
+    return rawToken;
+  }
+
+  BarkAuthenticationTokenHeader getHeader() {
+    return header;
+  }
+
+  BarkAuthenticationTokenBody getBody() {
+    return body;
+  }
+
+  bool verifyIssueDate() {
+    final DateTime now = DateTime.now();
+    final DateTime issueDate = DateTime.fromMillisecondsSinceEpoch(
+      header.iat * 1000,
+    );
+
+    return now.isAfter(issueDate);
+  }
+
+  bool verifyExpirationDate() {
+    final DateTime now = DateTime.now();
+    final DateTime expirationDate = DateTime.fromMillisecondsSinceEpoch(
+      header.exp * 1000,
+    );
+
+    return now.isBefore(expirationDate);
+  }
+
+  bool verifyTime() {
+    return verifyIssueDate() && verifyExpirationDate();
+  }
+
+  String getApplicationDomain() {
+    return header.aud;
+  }
+
+  String getAuthenticatorDomain() {
+    return header.iss;
+  }
+
+  String getTokenIdentifier() {
+    return header.jti;
+  }
+
+  String getAccountIdentifier() {
+    return body.identifier;
+  }
+
+  bool isAutomation() {
+    return body.automation;
+  }
+
+  bool isAdministrator() {
+    return body.administrator;
+  }
+
   @override
   String toString() {
     return "BarkAuthenticationToken(rawToken: $rawToken, header: $header, body: $body, signature: $signature)";
