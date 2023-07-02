@@ -1,7 +1,7 @@
 name: bark_authentication
 description: Flutter Client for Bark Authentication
-version: 0.0.1
-homepage: https://bark.sh
+version: 1.0.1
+homepage: https://github.com/barksh
 
 environment:
   sdk: ">=3.0.5 <4.0.0"
