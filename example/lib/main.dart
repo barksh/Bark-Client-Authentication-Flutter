@@ -7,7 +7,9 @@ void main() {
 }
 
 class MyApp extends StatefulWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+  });
 
   @override
   State<MyApp> createState() => _MyAppState();
@@ -29,14 +31,36 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Bark Client Authentication Example'),
         ),
         body: Center(
-          child: ElevatedButton(
-            child: const Text("Authenticate"),
-            onPressed: () async {
-              final BarkSignInResult? result = await signIn.signIn();
+          child: Builder(
+            builder: (BuildContext context) {
+              return ElevatedButton(
+                child: const Text("Authenticate"),
+                onPressed: () {
+                  signIn.signIn().then((BarkSignInResult? result) {
+                    if (result == null) {
+                      return;
+                    }
 
-              if (result == null) {
-                return;
-              }
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Authentication Result"),
+                          content: Text(result.toString()),
+                          actions: [
+                            TextButton(
+                              child: const Text("OK"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  });
+                },
+              );
             },
           ),
         ),

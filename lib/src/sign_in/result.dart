@@ -9,4 +9,9 @@ class BarkSignInResult {
     required this.refreshToken,
     required this.authenticationToken,
   });
+
+  @override
+  String toString() {
+    return 'BarkSignInResult{refreshToken: $refreshToken, authenticationToken: $authenticationToken}';
+  }
 }
