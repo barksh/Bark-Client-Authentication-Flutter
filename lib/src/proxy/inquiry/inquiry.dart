@@ -33,6 +33,10 @@ Future<BarkInquiryResponse> callBarkInquiry(
     logger.debug(response);
 
     return response;
+  } on DioException catch (e) {
+    logger.error(e);
+    logger.error(e.response?.data);
+    rethrow;
   } catch (e) {
     logger.error(e);
     rethrow;
