@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:logo/logo.dart';
 
@@ -21,8 +23,12 @@ Future<BarkRefreshResponse> callBarkRefresh(
       },
     );
 
+    logger.verbose("Bark - Refresh Proxy Response: $rawResponse");
+
     final BarkRefreshResponse response = BarkRefreshResponse.fromJson(
-      rawResponse.data,
+      rawResponse.data is String
+          ? jsonDecode(rawResponse.data)
+          : rawResponse.data,
     );
     logger.debug(response);
 

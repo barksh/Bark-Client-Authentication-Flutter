@@ -32,6 +32,10 @@ class BarkAuthenticationSignIn {
   Future<BarkSignInResult?> signIn() async {
     final Uri? authenticationModuleUri = await _getAuthenticationModuleDomain();
 
+    logger.verbose(
+      "Bark - Sign In Authentication Module Uri: $authenticationModuleUri",
+    );
+
     if (authenticationModuleUri == null) {
       return null;
     }
@@ -42,14 +46,22 @@ class BarkAuthenticationSignIn {
       logger: logger,
     );
 
-    final Uri? authenticationUiDomain = await _getAuthenticationUIDomain();
+    logger.verbose(
+      "Bark - Sign In Inquiry Response: $inquiryResponse",
+    );
 
-    if (authenticationUiDomain == null) {
+    final Uri? authenticationUiDomainUri = await _getAuthenticationUIDomain();
+
+    logger.verbose(
+      "Bark - Sign In UI Module Uri: $authenticationUiDomainUri",
+    );
+
+    if (authenticationUiDomainUri == null) {
       return null;
     }
 
     final bool result = await openAuthenticationPortal(
-      authenticationUiDomain,
+      authenticationUiDomainUri,
       inquiryResponse.exposureKey,
       logger: logger,
     );

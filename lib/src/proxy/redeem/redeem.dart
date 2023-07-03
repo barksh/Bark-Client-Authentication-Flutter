@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:logo/logo.dart';
 
@@ -21,8 +23,12 @@ Future<BarkRedeemResponse> callBarkRedeem(
       },
     );
 
+    logger.verbose("Bark - Redeem Proxy Response: $rawResponse");
+
     final BarkRedeemResponse response = BarkRedeemResponse.fromJson(
-      rawResponse.data,
+      rawResponse.data is String
+          ? jsonDecode(rawResponse.data)
+          : rawResponse.data,
     );
     logger.debug(response);
 

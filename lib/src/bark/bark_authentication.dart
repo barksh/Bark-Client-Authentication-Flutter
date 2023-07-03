@@ -36,7 +36,15 @@ class BarkAuthentication {
       return token;
     }
 
+    logger.verbose(
+      "Bark - Ensure Authentication Token Not Found in Storage",
+    );
+
     final BarkSignInResult? result = await signIn();
+
+    logger.verbose(
+      "Bark - Ensure Authentication Token Sign In Result: $result",
+    );
 
     if (result == null) {
       return null;
@@ -52,7 +60,15 @@ class BarkAuthentication {
       return token;
     }
 
+    logger.verbose(
+      "Bark - Ensure Refresh Token Not Found in Storage",
+    );
+
     final BarkSignInResult? result = await signIn();
+
+    logger.verbose(
+      "Bark - Ensure Refresh Token Sign In Result: $result",
+    );
 
     if (result == null) {
       return null;
@@ -66,7 +82,9 @@ class BarkAuthentication {
       key: authenticationStorageKey,
     );
 
-    logger.verbose("Bark - Get Authentication Token: $rawToken");
+    logger.verbose(
+      "Bark - Get Authentication Token: $rawToken",
+    );
 
     if (rawToken == null) {
       return null;
@@ -101,7 +119,9 @@ class BarkAuthentication {
       key: refreshStorageKey,
     );
 
-    logger.verbose("Bark - Get Refresh Token: $rawToken");
+    logger.verbose(
+      "Bark - Get Refresh Token: $rawToken",
+    );
 
     if (rawToken == null) {
       return null;
@@ -131,15 +151,17 @@ class BarkAuthentication {
     );
 
     logger.verbose(
-        "Bark - Write Authentication Token: ${result.authenticationToken.rawToken}");
+      "Bark - Write Authentication Token: ${result.authenticationToken.rawToken}",
+    );
 
     await storage.write(
       key: refreshStorageKey,
       value: result.refreshToken.rawToken,
     );
 
-    logger
-        .verbose("Bark - Write Refresh Token: ${result.refreshToken.rawToken}");
+    logger.verbose(
+      "Bark - Write Refresh Token: ${result.refreshToken.rawToken}",
+    );
 
     return result;
   }

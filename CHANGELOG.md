@@ -11,3 +11,8 @@
 ## 0.1.1
 
 - Add exception logging for proxies
+
+## 1.0.0
+
+- Support both String and Map response
+- Release 1.0.0

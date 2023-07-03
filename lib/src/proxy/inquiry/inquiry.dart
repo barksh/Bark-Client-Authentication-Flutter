@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
 import 'package:logo/logo.dart';
 
@@ -27,8 +29,12 @@ Future<BarkInquiryResponse> callBarkInquiry(
       },
     );
 
+    logger.verbose("Bark - Inquiry Proxy Response: $rawResponse");
+
     final BarkInquiryResponse response = BarkInquiryResponse.fromJson(
-      rawResponse.data,
+      rawResponse.data is String
+          ? jsonDecode(rawResponse.data)
+          : rawResponse.data,
     );
     logger.debug(response);
 
