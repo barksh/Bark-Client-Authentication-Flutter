@@ -100,6 +100,10 @@ class BarkAuthentication {
     final BarkRefreshToken? currentRefreshToken = await getRefreshToken();
 
     if (currentRefreshToken == null) {
+      logger.verbose(
+        "Bark - Unable to get current refresh token",
+      );
+
       return null;
     }
 
@@ -107,11 +111,15 @@ class BarkAuthentication {
       currentRefreshToken,
     );
 
-    if (refreshedToken != null) {
-      return refreshedToken;
+    if (refreshedToken == null) {
+      logger.verbose(
+        "Bark - Unable to get refreshed token",
+      );
+
+      return null;
     }
 
-    return null;
+    return refreshedToken;
   }
 
   Future<BarkRefreshToken?> getRefreshToken() async {
@@ -145,6 +153,10 @@ class BarkAuthentication {
       return null;
     }
 
+    await storage.delete(
+      key: authenticationStorageKey,
+    );
+
     await storage.write(
       key: authenticationStorageKey,
       value: result.authenticationToken.rawToken,
@@ -152,6 +164,10 @@ class BarkAuthentication {
 
     logger.verbose(
       "Bark - Write Authentication Token: ${result.authenticationToken.rawToken}",
+    );
+
+    await storage.delete(
+      key: refreshStorageKey,
     );
 
     await storage.write(
@@ -179,9 +195,17 @@ class BarkAuthentication {
       return null;
     }
 
+    await storage.delete(
+      key: authenticationStorageKey,
+    );
+
     await storage.write(
       key: authenticationStorageKey,
       value: token.rawToken,
+    );
+
+    logger.verbose(
+      "Bark - Write Authentication Token after Refresh: ${token.rawToken}",
     );
 
     return token;
@@ -191,6 +215,7 @@ class BarkAuthentication {
     await storage.delete(
       key: authenticationStorageKey,
     );
+
     await storage.delete(
       key: refreshStorageKey,
     );
