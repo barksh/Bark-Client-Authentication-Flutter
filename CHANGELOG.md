@@ -20,3 +20,7 @@
 ## 1.0.1
 
 - Fix refreshed token replacement
+
+## 1.1.0
+
+- Support scoped storage
