@@ -6,8 +6,8 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:logo/logo.dart';
 
 class BarkAuthentication {
-  static const String authenticationStorageKey = "bark-authentication-token";
-  static const String refreshStorageKey = "bark-refresh-token";
+  static const String rawAuthenticationStorageKey = "bark-authentication-token";
+  static const String rawRefreshStorageKey = "bark-refresh-token";
 
   final String authenticatorDomain;
   final String targetDomain;
@@ -18,15 +18,27 @@ class BarkAuthentication {
   late final Logo logger;
   late final FlutterSecureStorage storage;
 
+  late final String authenticationStorageKey;
+  late final String refreshStorageKey;
+
   BarkAuthentication({
     required this.authenticatorDomain,
     required this.targetDomain,
     this.overrideAuthenticationModuleDomain,
     this.overrideAuthenticationUiDomain,
     LogoLogLevel? logLevel,
+    String? storageScope,
   }) {
     logger = Logo(logLevel ?? LogoLogLevel.info());
     storage = const FlutterSecureStorage();
+
+    if (storageScope != null) {
+      authenticationStorageKey = "$storageScope-$rawAuthenticationStorageKey";
+      refreshStorageKey = "$storageScope-$rawRefreshStorageKey";
+    } else {
+      authenticationStorageKey = rawAuthenticationStorageKey;
+      refreshStorageKey = rawRefreshStorageKey;
+    }
   }
 
   Future<BarkAuthenticationToken?> ensureAuthenticationToken() async {
